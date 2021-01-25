@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+</head>
+<body>
+
+    <h1>Hello, H1!</h1>
+    <h1 custom="banner">Custom Attribute!</h1>
+    <h1 class="col-md-4">Class Starts With Col</h1>
+
+    <header>
+        <div>
+            <h1>Inside header</h1>
+        </div>
+    </header>
+
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.5.1.js"></script>
+    <script>
+        $(function() {
+            // will execute when the page is ready
+             
+            // update the text
+            // $('h1').text('Hello, jQuery');
+
+            // find elements based on attribute equality
+            $('[custom="banner"]').text('Found by equality');
+
+            // find elements based on attribute starts with
+            // $('[class^="col"]').text('Found by starts with');
+
+            // find elements based on attribute contains
+            $('[class*="md"]').text('Found by contains');
+
+            // parent/child
+            $('header > h1').text('Parent child');
+
+            // descendant
+            $('header h1').text('Descendant');
+
+            // first locator will give the element with an id of target
+            // second locator (method) will get all direct children
+            // the attr method will update an attribute
+            $('#target').children().attr('style', 'color:red');
+
+            // first locator will give the element with an id of target
+            // second locator (method) will get all descendants
+            // the attr method will update an attribute
+            // find always wants a selector
+            $('#target').find('*').attr('style', 'color:red');
+
+            // first locator will give the element with an id of target
+            // second locator (method) will give the parent (and only the direct)
+            // the attr method will update an attribute
+            $('#demo').parent().attr('style', 'color:red');
+
+            // first locator will give the element with an id of target
+            // second locator (method) will give the parents looking up the entire chain
+            // the attr method will update an attribute
+            $('#demo').parents().attr('style', 'color:red');
+
+            // update previous element 
+            $('#target').prev().attr('style', 'color:red');
+
+            // update all previous elements 
+            $('#target').prevAll().attr('style', 'color:red');
+
+            // update previous until (but not including) stop 
+            $('#target').prevUntil('.stop').attr('style', 'color:red');
+
+            // update next element 
+            $('#target').next().attr('style', 'color:red');
+
+            // update all next elements 
+            $('#target').nextAll().attr('style', 'color:red');
+
+            // update next until (but not including) stop 
+            $('#target').nextUntil('.stop').attr('style', 'color:red');
+
+            var element = $('#target');
+            var container = $('#container');
+
+            var index = container.children().index(element);
+
+            $('#display').text('Index is ' + index);
+
+            // get returns a DOM element, NOT a jQuery object
+            var foundElement = container.children().get(index);
+            // convert to jQuery object
+            var jQueryObject = $(foundElement);
+            jQueryObject.attr('style', 'color:red');
+
+            $('#target').addClass('blue');
+
+            $('#target').removeClass('blue red');
+
+            // update attribute value
+            $('#target').attr('style', 'color:red');
+
+            // remove attribute value
+            $('#target').removeAttr('style');
+
+            // update HTML
+            $('#target').html('<u>Updated!</u>');
+
+            // click event handler raised when the item is clicked
+            // to register an event handler, you will call the jQuery method that matches the event handler you're looking for
+            $('div').click(function() {
+                $('#display').text('Div was clicked');
+                // "this" is the DOM object that raised the event 
+                $(this).text('Clicked!');
+            });
+
+            // jQuery also pass an event object to the event handler
+            $('button').click(function(e) {
+                $('#output').text(e.pageX + 'X' + e.pageY);
+            });
+        });
+    </script>
+</body>
+</html>

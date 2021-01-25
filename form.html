@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <form>
+        <div>
+            <label for="name">Name:</label>
+            <input type="text" class="form-control" id="name" />
+            <span class="help">Please enter a name</span>
+        </div>
+        <div>
+            <label for="email">Email:</label>
+            <input type="text" class="form-control" id="email" />
+            <span class="help">Please enter an email</span>
+        </div>
+    </form>
+
+    <form>
+        <div><button type="button" class="btn" id="creator">Create New Button</button></div>
+        <div><button type="button" class="btn updater">Existing Button</button></div>
+        <div id="target"></div>
+    </form>
+
+    <div id="display"></div>
+
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.5.1.js"></script>
+    <script>
+        $(function() {
+            // will execute when the page is ready
+            
+            $('input[type="text"]').focus(function() {
+                // convert this to a jQueryObject
+                // find the next span element
+                // remove the hidden attribute
+                $(this).next('span.help').removeAttr('hidden');
+            }).blur(function() {
+                // find every help span element and hide them
+                $('span.help').attr('hidden', 'hidden');
+            });
+
+            // dynamic event handlers
+            $('form').on('click', 'button.validate', function() {
+                $('#display').text('Clicked!!');
+            });
+
+            $('#creator').click(function() {
+                $('#target').html('<button type="button" class="btn updater">New Button</button>');
+            });
+
+            $('button.updater').click(function() {
+                $('#display').text($(this).text() + ' was clicked!');
+            });
+
+            // will add the event handler to all the future objects as well
+            // inside the form, with a type of button and class of updater
+            // for click event 
+            $('form').delegate('button.updater', 'click', function() {
+                $('#display').text($(this).text() + ' was clicked!');
+            });
+
+            // single execution
+            $('#target').one('click', function() {
+                $('#display').text($('#display').text() + "Clicked!!");
+            });
+
+            // triggering events
+            $('button.updater').click(function() {
+                var existingText = $('#display').text();
+                var buttonText = $(this).text();
+                $('#display').text(existingText + ' - ' + buttonText);
+            });
+
+            $('#target').click(function() {
+                // perform a click on the buttons
+                // $('button.updator').click();
+
+                // just execute the event handler code by using trigger
+                // $('button.updater').trigger('click');
+
+                // just excute the first one
+                $('button.updater').triggerHandler('click');
+            });
+
+            // internal DOM manipulation
+            // modifies the contents (places new data on the inside)
+            $('#target').click(function() {
+                // prepend
+                $('#display').prepend('<div>This is at the beginning</div>');
+
+                // append
+                $('#display').append('<div>This is at the end</div>');
+            });
+
+            // external DOM manipulation
+            // makes modifications on the outside
+            $('#target').click(function() {
+                // before
+                $('#display').before('<div>This is at the beginning</div>');
+                
+                // after
+                $('#display').after('<div>This is at the end</div>');
+            });
+
+            $('#executor').click(function() {
+                // hide 
+                // $('#box').hide(1000);
+
+                // toggle
+                $('#box').toggle(1000);
+            });
+        });
+    </script>
+</body>
+</html>

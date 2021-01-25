@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+</head>
+<body>
+
+    <h1>Hello, H1!</h1>
+    <h1 custom="banner">Custom Attribute!</h1>
+    <h1 class="col-md-4">Class Starts With Col</h1>
+
+    <header>
+        <div>
+            <h1>Inside header</h1>
+        </div>
+    </header>
+
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.5.1.js"></script>
+    <script>
+        $(function() {
+            $('#executor').click(function() {
+                // hide runs asynchronously
+                // the next line of code runs immediately
+                // $('.box').hide(1000);
+                // $('#output').text('Box is now hidden!');
+
+                // to run synchronously
+                $('.box').hide(1000).promise().done(function() {
+                    // This code will run *after* the hide is completed
+                    $('#output').text('Box is now hidden!');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
